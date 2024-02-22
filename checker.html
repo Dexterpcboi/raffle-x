@@ -1,0 +1,359 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethereum Address Checker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(to bottom, #0082c8 0%, #005a8e 100%) repeat scroll 0% 0%;
+            color: white;
+            overflow: hidden;
+            animation: wave 5s infinite linear;
+        }
+
+        @keyframes wave {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        #customModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        #modalContent {
+            background-color: blue;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 70%; /* Adjusted the size to medium */
+            color: wheat;
+        }
+
+        label {
+            margin-top: 10px;
+            font-size: 18px;
+        }
+
+        #addressInput {
+            width: 60%;
+            max-width: 300px;
+            margin-top: 5px;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        #confirmButton {
+            width: 60%;
+            max-width: 300px;
+            margin-top: 15px;
+            padding: 10px;
+            font-size: 18px;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        @keyframes shake {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            25%, 75% {
+                transform: translateX(-10px);
+            }
+            50% {
+                transform: translateX(10px);
+            }
+        }
+
+        .shake {
+            animation: shake 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <div id="customModal" onclick="closeCustomModal()">
+        <div id="modalContent" onclick="event.stopPropagation()">
+            <div id="result"></div>
+        </div>
+    </div>
+
+    <label for="addressInput">Enter Ethereum Address:</label>
+    <input type="text" id="addressInput" class="form-control" placeholder="0x..." required>
+
+    <button id="confirmButton" class="btn btn-primary mt-3" onclick="checkAddress()">Confirm Wallet</button>
+
+    <script>
+        function checkAddress() {
+            var inputAddress = document.getElementById("addressInput").value.trim().toLowerCase();
+
+            if (!inputAddress) {
+                // Add shake animation to the input box if it's empty
+                document.getElementById("addressInput").classList.add("shake");
+                setTimeout(function () {
+                    document.getElementById("addressInput").classList.remove("shake");
+                }, 300);
+                return;
+            }
+
+            // Assume the CSV file is named data.csv
+            fetch('data.csv')  // Update file name here
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text();
+                })
+                .then(csv => {
+                    const rows = csv.split('\n');
+                    const headers = rows[0].split(',');
+
+                    // Find the index of the "ethereum_address" column
+                    const addressIndex = headers.indexOf('ethereum_address');
+
+                    if (addressIndex === -1) {
+                        throw new Error('CSV file is missing ethereum_address column');
+                    }
+
+                    // Check each row for the specified address
+                    for (let i = 1; i < rows.length; i++) {
+                        const currentRow = rows[i].split(',');
+
+                        // Ensure the row has the expected number of columns
+                        if (currentRow.length > addressIndex) {
+                            const currentAddress = currentRow[addressIndex].trim().toLowerCase();
+
+                            if (currentAddress === inputAddress) {
+                                showCustomModal("YOUR ACCOUNT IS ON THE WL");
+                                return;
+                            }
+                        }
+                    }
+
+                    showCustomModal("NO, YOU ARE NOT");
+                })
+                .catch(error => {
+                    console.error('Error fetching or processing CSV:', error);
+                    showCustomModal("Error fetching or processing CSV. Please try again later.");
+                });
+        }
+
+        function showCustomModal(message) {
+            document.getElementById("result").innerText = message;
+            document.getElementById("customModal").style.display = "flex";
+        }
+
+        function closeCustomModal() {
+            document.getElementById("customModal").style.display = "none";
+        }
+    </script>
+</body>
+</html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethereum Address Checker - Dexterdpcboi™</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shrikhand&display=swap">
+    <style>
+        body {
+            font-family: 'Shrikhand', cursive;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(ellipse at center, #fbff00 0%, #95eb0b 100%) repeat scroll 0% 0%;
+            color: white;
+            overflow: hidden;
+            animation: wave 5s infinite linear;
+        }
+
+        @keyframes wave {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        #hungryBears {
+            font-size: 6vw; /* Relative font size */
+            margin-top: 3vw; /* Relative margin */
+        }
+
+        label {
+            margin-top: 2vw; /* Relative margin */
+            font-size: 3vw; /* Relative font size */
+        }
+
+        #addressInput {
+            width: 60%;
+            max-width: 700px;
+            margin-top: 1.2vw; /* Relative margin */
+            padding: 2vw; /* Relative padding */
+            font-size: 3vw; /* Relative font size */
+        }
+
+        #confirmButton {
+            width: 60%;
+            max-width: 500px;
+            margin-top: 1.2vw; /* Relative margin */
+            padding: 1.2vw; /* Relative padding */
+            font-size: 4vw; /* Relative font size */
+        }
+
+        #resultImage {
+            display: none;
+            width: 15vw; /* Relative width */
+            height: auto; /* Maintain aspect ratio */
+            margin-top: 2vw; /* Relative margin */
+        }
+
+        #resultText {
+            font-weight: bold;
+            margin-top: 2vw; /* Relative margin */
+            font-size: 4vw; /* Relative font size */
+        }
+
+        @keyframes shake {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            25%, 75% {
+                transform: translateX(-1vw); /* Relative translation */
+            }
+            50% {
+                transform: translateX(1vw); /* Relative translation */
+            }
+        }
+
+        .shake {
+            animation: shake 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <div id="hungryBears">GRENCH WAY</div>
+    <img id="resultImage" src="" alt="Result Image">
+    <div id="resultText"></div>
+
+    <label for="addressInput">Enter Ethereum Address:</label>
+    <input type="text" id="addressInput" class="form-control" placeholder="Wallet..." required>
+
+    <button id="confirmButton" class="btn btn-primary mt-3" onclick="checkAddress()">Confirm Wallet</button>
+    <style>
+        .form-control{
+            border: #95eb0b;
+        }
+    </style>
+
+    <script>
+        function checkAddress() {
+            var inputAddress = document.getElementById("addressInput").value.trim().toLowerCase();
+
+            if (!inputAddress) {
+                // Add shake animation to the input box if it's empty
+                document.getElementById("addressInput").classList.add("shake");
+                setTimeout(function () {
+                    document.getElementById("addressInput").classList.remove("shake");
+                }, 300);
+                return;
+            }
+
+            // Assume the CSV file is named data.csv
+            fetch('data.csv')  // Update file name here
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text();
+                })
+                .then(csv => {
+                    const rows = csv.split('\n');
+                    const headers = rows[0].split(',');
+
+                    // Find the index of the "ethereum_address" column
+                    const addressIndex = headers.indexOf('ethereum_address');
+
+                    if (addressIndex === -1) {
+                        throw new Error('CSV file is missing ethereum_address column');
+                    }
+
+                    // Check each row for the specified address
+                    for (let i = 1; i < rows.length; i++) {
+                        const currentRow = rows[i].split(',');
+
+                        // Ensure the row has the expected number of columns
+                        if (currentRow.length > addressIndex) {
+                            const currentAddress = currentRow[addressIndex].trim().toLowerCase();
+
+                            if (currentAddress === inputAddress) {
+                                showResult("YOUR ACCOUNT IS ON THE WL", 'bear1.jpeg');
+                                return;
+                            }
+                        }
+                    }
+
+                    showResult("NO, YOU ARE NOT", 'er1.png');
+                })
+                .catch(error => {
+                    console.error('Error fetching or processing CSV:', error);
+                    showResult("Error fetching or processing CSV. Please try again later.", 'er1.png');
+                });
+        }
+
+        function showResult(message, image) {
+        document.getElementById("resultText").innerText = message;
+        document.getElementById("resultImage").src = image;
+        document.getElementById("resultImage").style.display = "block";
+
+        // Add a timer to hide result elements after 6 seconds
+        setTimeout(function () {
+            hideResult();
+        }, 3000);
+    }
+
+    function hideResult() {
+        // Hide result elements
+        document.getElementById("resultText").innerText = "";
+        document.getElementById("resultImage").src = "";
+        document.getElementById("resultImage").style.display = "none";
+    }
+    </script>
+</body>
+</html>
+
